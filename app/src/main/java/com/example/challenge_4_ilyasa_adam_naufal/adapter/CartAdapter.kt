@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.Cart
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.ItemCartBinding
 import com.example.challenge_4_ilyasa_adam_naufal.viewModel.CartViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class CartAdapter(
-private val cartViewModel: CartViewModel,
+	private val cartViewModel: CartViewModel,
 	private val cfmOrder: Boolean
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -27,7 +27,7 @@ private val cartViewModel: CartViewModel,
 	override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
 		val currentItem = cartItems[position]
 
-		holder.bind(currentItem, viewModel = cartViewModel,cfmOrder)
+		holder.bind(currentItem, viewModel = cartViewModel, cfmOrder)
 
 	}
 
@@ -36,23 +36,33 @@ private val cartViewModel: CartViewModel,
 
 		fun bind(cartItem: Cart, viewModel: CartViewModel, cfmOrder: Boolean) {
 
-			if (cfmOrder){
+			if (cfmOrder) {
 				binding.delete.visibility = View.GONE
 				binding.btnadd.visibility = View.INVISIBLE
 				binding.btnreduce.visibility = View.INVISIBLE
+
 				binding.tvDesc.text = cartItem.itemName
-				binding.image.setImageResource(cartItem.imgId)
-				binding.tvPrice.text = cartItem.priceMenu.toString()
+				binding.tvPrice.text = cartItem.itemPrice.toString()
 				binding.tvNumber.text = cartItem.itemQuantity.toString()
-			}
-			else {
+				binding.noteText.text = cartItem.itemNote.toString()
+
+				Glide.with(this.binding.image)
+					.load(cartItem.imgId)
+					.fitCenter()
+					.into(binding.image)
+			} else {
 				binding.tvDesc.text = cartItem.itemName
-				binding.image.setImageResource(cartItem.imgId)
-				binding.tvPrice.text = cartItem.priceMenu.toString()
+				binding.tvPrice.text = cartItem.itemPrice.toString()
 				binding.tvNumber.text = cartItem.itemQuantity.toString()
+				binding.noteText.text = cartItem.itemNote.toString()
+
+				Glide.with(this.binding.image)
+					.load(cartItem.imgId)
+					.fitCenter()
+					.into(binding.image)
 			}
 			binding.delete.setOnClickListener {
-			viewModel.deleteItemCart(cartItem.id)
+				viewModel.deleteItemCart(cartItem.id)
 			}
 
 			binding.btnreduce.setOnClickListener {
