@@ -11,17 +11,17 @@ data class DataListMenu(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("alamat_resto")
-    val alamatResto: String,
+    val alamatResto: String?,
     @SerializedName("detail")
-    val detail: String,
+    val detail: String?,
     @SerializedName("harga")
-    val harga: Int,
+    val harga: Int?,
     @SerializedName("harga_format")
-    val hargaFormat: String,
+    val hargaFormat: String?,
     @SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("nama")
-    val nama: String,
+    val nama: String?,
     @SerializedName("updatedAt")
     val updatedAt: String?
 ): Parcelable

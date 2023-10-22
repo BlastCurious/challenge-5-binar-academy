@@ -13,14 +13,20 @@ interface CartDao {
 	@Insert
 	fun insert(cart: Cart)
 
-	@Query("SELECT * FROM cart_menu ORDER BY id DESC ")
-	fun getAllItem(): LiveData<List<Cart>>
+	@Query("SELECT * FROM cart_menu WHERE food_name = :foodName")
+	fun getItem(foodName: String): LiveData<Cart>
 
-	@Delete
-	fun delete(cart: Cart)
+	@Query("SELECT * FROM cart_menu")
+	fun getAllItems(): LiveData<List<Cart>>
+
+	@Query("DELETE FROM cart_menu")
+	fun delete()
 
 	@Query("DELETE FROM cart_menu WHERE id = :itemIDD")
 	fun deleteItemById(itemIDD: Long)
+
+	@Query("UPDATE cart_menu SET food_Quantity = :newTotal WHERE food_name= :foodName")
+	fun updateQuantitiyByName(newTotal: Int, foodName: String)
 
 	@Update
 	fun update(cart: Cart)

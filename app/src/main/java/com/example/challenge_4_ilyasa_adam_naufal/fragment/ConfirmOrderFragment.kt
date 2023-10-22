@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +14,8 @@ import com.example.challenge_4_ilyasa_adam_naufal.viewmodelfactory.ViewModelFact
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentConfirmOrderBinding
 
 class ConfirmOrderFragment : Fragment() {
-	private lateinit var binding: FragmentConfirmOrderBinding
+	private var _binding: FragmentConfirmOrderBinding? = null
+	private val binding get() = _binding!!
 	private lateinit var cartViewModel: CartViewModel
 
 	override fun onCreateView(
@@ -21,7 +23,7 @@ class ConfirmOrderFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		// Inflate the layout for this fragment
-		binding = FragmentConfirmOrderBinding.inflate(inflater,container, false)
+		_binding = FragmentConfirmOrderBinding.inflate(inflater,container, false)
 		return binding.root
 	}
 
@@ -31,9 +33,11 @@ class ConfirmOrderFragment : Fragment() {
 		setUpCartViewModel()
 		showRecyclerView()
 		summary()
+		popupMsg()
 	}
 
 	private fun summary() {
+		var grandTotal = 0
 		cartViewModel.allCartItems.observe(viewLifecycleOwner) {
 			var listMenu = ""
 			var priceMenu = ""
@@ -41,14 +45,16 @@ class ConfirmOrderFragment : Fragment() {
 			it.forEach { item ->
 				listMenu += "${item.itemName} - ${item.itemQuantity} x ${item.itemPrice}\n"
 				priceMenu += "Rp. ${item.totalPrice}\n"
-				totalPrice += item.totalPrice
+				totalPrice += item.totalPrice!!
 			}
 
 			val totalText = "Rp. $totalPrice"
+			grandTotal = totalPrice
 			binding.itemName.text = listMenu
 			binding.itemQuantity.text = priceMenu
 			binding.totalPrice.text = totalText
 		}
+		return grandTotal
 	}
 
 	private fun setUpCartViewModel() {
@@ -67,7 +73,7 @@ class ConfirmOrderFragment : Fragment() {
 
 			var totalPrice = 0
 			it.forEach { item ->
-				totalPrice += item.totalPrice
+				totalPrice += item.totalPrice!!
 			}
 		}
 	}
@@ -75,6 +81,15 @@ class ConfirmOrderFragment : Fragment() {
 	private fun btnBack() {
 		binding.btnback.setOnClickListener {
 			requireActivity().onBackPressed()
+		}
+	}
+
+	private fun popupMsg(){
+		cartViewModel.orderSuccess.observe(viewLifecycleOwner) {
+			if (it) {
+				Toast.makeText(requireContext(), "Success order", Toast.LENGTH_SHORT).show()
+				DialogFragment().show(childFragmentManager, DialogFragment.TAG)
+			}
 		}
 	}
 
