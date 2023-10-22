@@ -37,7 +37,7 @@ class CartFragment : Fragment() {
 
 			var totalprice = 0
 			it.forEach { item ->
-				totalprice += item.totalPrice
+				totalprice += item.totalPrice!!
 			}
 			val priceText = "Rp. $totalprice"
 			binding.resultTotalPrice.text = priceText

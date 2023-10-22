@@ -82,7 +82,6 @@ class DetailItemFragment: Fragment() {
 			viewModel.addToCart(note)
 
 			Toast.makeText(requireContext(), "Success Add Data", Toast.LENGTH_SHORT).show()
-			findNavController().navigate(R.id.action_detailItem_to_cartFragment)
 		}
 	}
 
