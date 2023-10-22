@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.ActivityLoginMenuBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginMenu : AppCompatActivity() {
 
@@ -17,7 +19,7 @@ class LoginMenu : AppCompatActivity() {
 		binding = ActivityLoginMenuBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		firebaseAuth = FirebaseAuth.getInstance()
+		firebaseAuth = Firebase.auth
 
 		binding.btnLogin.setOnClickListener {
 			login(binding.etEmailLogin.text.toString(), binding.etPwLogin.text.toString())
@@ -28,7 +30,6 @@ class LoginMenu : AppCompatActivity() {
 			finish()
 		}
 	}
-
 
 	override fun onStart() {
 		super.onStart()

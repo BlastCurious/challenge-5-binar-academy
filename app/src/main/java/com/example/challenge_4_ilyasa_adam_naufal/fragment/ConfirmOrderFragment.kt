@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challenge_4_ilyasa_adam_naufal.adapter.CartAdapter
+import com.example.challenge_4_ilyasa_adam_naufal.dataClass.Order
+import com.example.challenge_4_ilyasa_adam_naufal.dataClass.OrderRequest
 import com.example.challenge_4_ilyasa_adam_naufal.viewModel.CartViewModel
 import com.example.challenge_4_ilyasa_adam_naufal.viewmodelfactory.ViewModelFactory
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentConfirmOrderBinding
@@ -33,10 +35,11 @@ class ConfirmOrderFragment : Fragment() {
 		setUpCartViewModel()
 		showRecyclerView()
 		summary()
+		confirmOrder()
 		popupMsg()
 	}
 
-	private fun summary() {
+	private fun summary(): Int {
 		var grandTotal = 0
 		cartViewModel.allCartItems.observe(viewLifecycleOwner) {
 			var listMenu = ""
@@ -54,6 +57,7 @@ class ConfirmOrderFragment : Fragment() {
 			binding.itemQuantity.text = priceMenu
 			binding.totalPrice.text = totalText
 		}
+		return grandTotal
 	}
 
 	private fun setUpCartViewModel() {
@@ -88,6 +92,25 @@ class ConfirmOrderFragment : Fragment() {
 			if (it) {
 				Toast.makeText(requireContext(), "Success order", Toast.LENGTH_SHORT).show()
 				DialogFragment().show(childFragmentManager, DialogFragment.TAG)
+			}
+		}
+	}
+
+	private fun confirmOrder (){
+		binding.btnOrder.setOnClickListener {
+			val username = "Ilyas"
+			val orderItem = cartViewModel.allCartItems.value ?: emptyList()
+
+			if (orderItem.isNotEmpty()) {
+				//mapping
+				val orderRequest = OrderRequest(username, summary(), orderItem.map {
+					Order(it.itemName, it.itemQuantity, it.itemNote, it.totalPrice!!)
+				})
+
+				cartViewModel. postData(orderRequest)
+
+			} else {
+				Toast.makeText(requireContext(), "Data Kosong", Toast.LENGTH_SHORT).show()
 			}
 		}
 	}

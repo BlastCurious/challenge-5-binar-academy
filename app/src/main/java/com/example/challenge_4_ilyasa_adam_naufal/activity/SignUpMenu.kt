@@ -8,6 +8,8 @@ import com.example.challenge_4_ilyasa_adam_naufal.database.profile.Profile
 import com.example.challenge_4_ilyasa_adam_naufal.database.profile.ProfileDatabase
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.ActivitySingupMenuBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -19,7 +21,7 @@ class SignUpMenu : AppCompatActivity() {
 		binding = ActivitySingupMenuBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		firebaseAuth = FirebaseAuth.getInstance()
+		firebaseAuth = Firebase.auth
 
 		binding.btnSignup.setOnClickListener {
 			signup(binding.etEmailSignup.text.toString(), binding.etPwSignup.text.toString())
@@ -53,6 +55,7 @@ class SignUpMenu : AppCompatActivity() {
 				}
 			}
 	}
+
 	private fun insertProfile(email: String, address: String, mobile: String) {
 		val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
