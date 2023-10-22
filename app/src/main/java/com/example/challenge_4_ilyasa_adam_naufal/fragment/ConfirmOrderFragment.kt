@@ -54,7 +54,6 @@ class ConfirmOrderFragment : Fragment() {
 			binding.itemQuantity.text = priceMenu
 			binding.totalPrice.text = totalText
 		}
-		return grandTotal
 	}
 
 	private fun setUpCartViewModel() {
