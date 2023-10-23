@@ -51,4 +51,7 @@
 
     <string name="order_confirmation">Order Confirmation</string>
     <string name="ok_order">OK</string>
+    <string name="_0">0</string>
+    <string name="total_pesanan">Total Pesanan</string>
+    <string name="empty_cart">empty_cart</string>
 </resources>

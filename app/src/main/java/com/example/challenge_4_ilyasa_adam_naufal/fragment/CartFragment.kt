@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,7 +17,8 @@ import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentCartBindin
 
 
 class CartFragment : Fragment() {
-	private lateinit var binding: FragmentCartBinding
+	private var _binding: FragmentCartBinding? = null
+	private val binding get() = _binding!!
 	private lateinit var cartViewModel: CartViewModel
 	private lateinit var cartAdapter: CartAdapter
 
@@ -24,7 +26,7 @@ class CartFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
-		binding = FragmentCartBinding.inflate(inflater, container, false)
+		_binding = FragmentCartBinding.inflate(inflater, container, false)
 		setUpCartViewModel()
 
 		cartAdapter = CartAdapter(cartViewModel,false)
@@ -33,16 +35,25 @@ class CartFragment : Fragment() {
 		binding.rvCart.adapter = cartAdapter
 
 		cartViewModel.allCartItems.observe(viewLifecycleOwner) {
-			cartAdapter.setData(it)
+			if (it.isEmpty()){
+				binding.rvCart.visibility = View.GONE
+				binding.emptyImage.visibility = View.VISIBLE
+				binding.tvEmptyCart.visibility = View.VISIBLE
 
-			var totalprice = 0
-			it.forEach { item ->
-				totalprice += item.totalPrice!!
+				binding.resultTotalPrice.text = "0"
+			} else {
+				cartAdapter.setData(it)
+
+				var totalprice = 0
+				it.forEach { item ->
+					totalprice += item.totalPrice!!
+				}
+				val priceText = "Rp. $totalprice"
+				binding.resultTotalPrice.text = priceText
 			}
-			val priceText = "Rp. $totalprice"
-			binding.resultTotalPrice.text = priceText
+
 		}
-		addToSummary()
+		confirmOrder()
 		return binding.root
 	}
 
@@ -51,12 +62,24 @@ class CartFragment : Fragment() {
 		cartViewModel = ViewModelProvider(this, viewModelFactory)[CartViewModel::class.java]
 	}
 
-	private fun addToSummary() {
+	private fun confirmOrder() {
 		binding.btnPesan.setOnClickListener {
-			findNavController().navigate(
-				R.id.action_cartFragment_to_confirmOrderFragment
-			)
+			if (binding.resultTotalPrice.text.toString() == "Rp. 0" ) {
+				binding.btnPesan.isEnabled = false
+				Toast.makeText(requireContext(), "Keranjang kosong", Toast.LENGTH_SHORT).show()
+			} else {
+				binding.btnPesan.isEnabled = true
+				findNavController().navigate(
+					R.id.action_cartFragment_to_confirmOrderFragment
+				)
+			}
+
 		}
 
+	}
+
+	override fun onDestroyView() {
+		super.onDestroyView()
+		_binding = null
 	}
 }
