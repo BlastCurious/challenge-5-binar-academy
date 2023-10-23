@@ -58,8 +58,9 @@ class DetailViewModel(application: Application) : ViewModel() {
 				itemQuantity = counter.value!!.toInt(),
 				imgId = it.imageUrl.toString()
 			)
+			repo.addOrUpdateCartItem(itemCart)
 
-			insert(itemCart)
+			//insert(itemCart)
 //			val existingItem = repo.getByName(itemCart.itemName)
 //
 //			existingItem.observeForever { cartCheck ->

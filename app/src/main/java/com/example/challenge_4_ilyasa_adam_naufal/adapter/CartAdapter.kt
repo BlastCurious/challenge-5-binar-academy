@@ -72,6 +72,8 @@ class CartAdapter(
 
 			binding.btnadd.setOnClickListener {
 				viewModel.increment(cartItem)
+//				val newQuantity = cartItem.itemQuantity + 1
+//				viewModel.updateQuantityItem(cartItem, newQuantity)
 				binding.tvNumber.text = cartItem.itemQuantity.toString()
 			}
 		}

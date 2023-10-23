@@ -25,9 +25,22 @@ interface CartDao {
 	@Query("DELETE FROM cart_menu WHERE id = :itemId")
 	fun deleteItemById(itemId: Int)
 
-	@Query("UPDATE cart_menu SET food_Quantity = :newTotal WHERE food_name= :foodName")
-	fun updateQuantitiyByName(newTotal: Int, foodName: String)
-
 	@Update
 	fun update(cart: Cart)
+
+	@Query("Select * FROM cart_menu WHERE food_name = :name")
+	fun getCartItemByName(name : String): Cart?
+
+	fun addOrUpdateCartItem(cartData: Cart) {
+		val existingItem = getCartItemByName(cartData.itemName)
+		if (existingItem != null) {
+			val newQuantity = existingItem.itemQuantity+ cartData.itemQuantity
+			existingItem.itemQuantity = newQuantity
+			update(existingItem)
+		} else {
+
+			insert(cartData)
+		}
+	}
+
 }

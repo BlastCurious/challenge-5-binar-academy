@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challenge_4_ilyasa_adam_naufal.adapter.CartAdapter
 import com.example.challenge_4_ilyasa_adam_naufal.dataClass.Order
 import com.example.challenge_4_ilyasa_adam_naufal.dataClass.OrderRequest
+import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentConfirmOrderBinding
 import com.example.challenge_4_ilyasa_adam_naufal.viewModel.CartViewModel
 import com.example.challenge_4_ilyasa_adam_naufal.viewmodelfactory.ViewModelFactory
-import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentConfirmOrderBinding
 
 class ConfirmOrderFragment : Fragment() {
 	private var _binding: FragmentConfirmOrderBinding? = null
@@ -25,7 +25,7 @@ class ConfirmOrderFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		// Inflate the layout for this fragment
-		_binding = FragmentConfirmOrderBinding.inflate(inflater,container, false)
+		_binding = FragmentConfirmOrderBinding.inflate(inflater, container, false)
 		btnBack()
 		setUpCartViewModel()
 		showRecyclerView()
@@ -62,7 +62,7 @@ class ConfirmOrderFragment : Fragment() {
 	}
 
 	private fun showRecyclerView() {
-		val adapter = CartAdapter(cartViewModel,true)
+		val adapter = CartAdapter(cartViewModel, true)
 
 		binding.rvConfirm.adapter = adapter
 		binding.rvConfirm.layoutManager = LinearLayoutManager(requireContext())
@@ -83,16 +83,15 @@ class ConfirmOrderFragment : Fragment() {
 		}
 	}
 
-	private fun popupMsg(){
+	private fun popupMsg() {
 		cartViewModel.orderSuccess.observe(viewLifecycleOwner) {
 			if (it) {
 				Toast.makeText(requireContext(), "Success order", Toast.LENGTH_SHORT).show()
-				DialogFragment().show(childFragmentManager, DialogFragment.TAG)
 			}
 		}
 	}
 
-	private fun confirmOrder (){
+	private fun confirmOrder() {
 		binding.btnOrder.setOnClickListener {
 			val username = "Ilyas"
 			val orderItem = cartViewModel.allCartItems.value ?: emptyList()
@@ -103,11 +102,16 @@ class ConfirmOrderFragment : Fragment() {
 					Order(it.itemName, it.itemQuantity, it.itemNote, it.totalPrice!!)
 				})
 
-				cartViewModel. postData(orderRequest)
+				cartViewModel.postData(orderRequest)
 
 			} else {
 				Toast.makeText(requireContext(), "Data Kosong", Toast.LENGTH_SHORT).show()
 			}
+
+			val dialogPayment = DialogFragment()
+			dialogPayment.show(childFragmentManager, "PaymentSuccesfull")
+			cartViewModel.deleteAllData()
+
 		}
 	}
 

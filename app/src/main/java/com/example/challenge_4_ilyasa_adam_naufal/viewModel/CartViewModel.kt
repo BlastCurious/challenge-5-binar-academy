@@ -30,7 +30,7 @@ class CartViewModel(application: Application) : ViewModel() {
 		repo.deleteAll()
 	}
 
-	private fun updateQuantityItem(cart: Cart) {
+	fun updateQuantityItem(cart: Cart) {
 		repo.updateQuantityItem(cart)
 	}
 
@@ -41,7 +41,6 @@ class CartViewModel(application: Application) : ViewModel() {
 
         updateQuantityItem(cart)
 	}
-
 
 	fun decrement(cart: Cart) {
 		var newTotal = cart.itemQuantity - 1
