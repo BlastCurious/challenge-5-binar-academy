@@ -101,10 +101,10 @@ class HomeFragment : Fragment() {
 	}
 
 	// RecycleViewCategory
-	private fun catView(data: CategoryMenu) {
+	private fun showCategory(data: CategoryMenu) {
 		val adapter = CategoryAdapter()
 
-		adapter.submitCategoryMenuResponse(	data.data ?: emptyList())
+		adapter.submitCategoryMenuResponse(data.data)
 		binding.recycleviewHorizontal.layoutManager =
 			LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
 		binding.recycleviewHorizontal.adapter = adapter
@@ -143,11 +143,9 @@ class HomeFragment : Fragment() {
 					response: Response<CategoryMenu>
 				) {
 					val body = response.body()
-					val code = response.code()
 
-					Log.d("SimpleNetworking", body.toString())
-					if (code == 200) {
-						catView(body!!)
+					if (response.code() == 200) {
+						showCategory(body!!)
 					}
 				}
 

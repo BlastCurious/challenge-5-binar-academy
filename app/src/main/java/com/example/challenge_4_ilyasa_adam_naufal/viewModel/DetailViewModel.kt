@@ -9,8 +9,6 @@ import com.example.challenge_4_ilyasa_adam_naufal.database.cart.Cart
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.CartDao
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.CartDatabase
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.CartRepo
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class DetailViewModel(application: Application) : ViewModel() {
 
@@ -24,8 +22,6 @@ class DetailViewModel(application: Application) : ViewModel() {
 
 	private val cartDao: CartDao
 	private val repo: CartRepo = CartRepo(application)
-
-	private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
 	init {
 		val db = CartDatabase.getInstance(application)
