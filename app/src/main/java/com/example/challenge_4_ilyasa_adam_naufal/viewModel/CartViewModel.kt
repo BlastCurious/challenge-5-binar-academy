@@ -15,14 +15,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CartViewModel(application: Application) : ViewModel() {
-	val repo: CartRepo = CartRepo(application)
+	private val repo: CartRepo = CartRepo(application)
 
 	val allCartItems: LiveData<List<Cart>> = repo.getAllCartItems()
 
 	private val _orderSuccess = MutableLiveData<Boolean>()
 	val orderSuccess : LiveData<Boolean> = _orderSuccess
 
-	fun deleteItemCart(cartId: Long) {
+	fun deleteItemCart(cartId: Int) {
 		repo.deleteItemCart(cartId)
 	}
 
@@ -30,14 +30,14 @@ class CartViewModel(application: Application) : ViewModel() {
 		repo.deleteAll()
 	}
 
-	fun updateQuantityItem(cart: Cart) {
+	private fun updateQuantityItem(cart: Cart) {
 		repo.updateQuantityItem(cart)
 	}
 
 	fun increment(cart: Cart) {
 		val newTotal = cart.itemQuantity + 1
 		cart.itemQuantity = newTotal
-		cart.totalPrice = cart.itemPrice?.times(newTotal)
+		cart.totalPrice = cart.itemPrice!!.times(newTotal)
 
         updateQuantityItem(cart)
 	}
@@ -50,7 +50,7 @@ class CartViewModel(application: Application) : ViewModel() {
 		}
 
 		cart.itemQuantity = newTotal
-		cart.totalPrice = cart.itemPrice?.times(newTotal)
+		cart.totalPrice = cart.itemPrice!!.times(newTotal)
 
         updateQuantityItem(cart)
 	}

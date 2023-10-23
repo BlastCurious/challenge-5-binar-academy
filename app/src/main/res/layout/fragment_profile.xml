@@ -81,30 +81,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_username"
             tools:ignore="TextFields,VisualLintTextFieldSize" />
 
-        <TextView
-            android:id="@+id/tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/password"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_username" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:hint="@string/invisible"
-            android:importantForAutofill="no"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_password"
-            tools:ignore="TextFields,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -116,7 +92,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_password" />
+            app:layout_constraintTop_toBottomOf="@id/et_username" />
 
         <EditText
             android:id="@+id/et_email"

@@ -184,8 +184,8 @@
                 android:id="@+id/itemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title"
                 android:layout_marginStart="10dp"
+                android:text="@string/title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/summaryPayment" />
 
@@ -193,8 +193,8 @@
                 android:id="@+id/itemQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/quantity"
                 android:layout_marginStart="10dp"
+                android:text="@string/quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/itemName" />
 
@@ -202,25 +202,26 @@
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
                 android:layout_marginStart="10dp"
+                android:text="@string/price"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/itemQuantity" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOrder"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/pesan"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/totalPrice"
+                tools:ignore="VisualLintButtonSize" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnOrder"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="@string/pesan"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        app:cornerRadius="8dp"
-        android:layout_gravity="bottom|center"
-
-        tools:ignore="VisualLintButtonSize" />
 
 </FrameLayout>

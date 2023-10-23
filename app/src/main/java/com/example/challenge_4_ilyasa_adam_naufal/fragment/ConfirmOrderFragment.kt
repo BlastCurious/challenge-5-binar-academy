@@ -26,17 +26,13 @@ class ConfirmOrderFragment : Fragment() {
 	): View {
 		// Inflate the layout for this fragment
 		_binding = FragmentConfirmOrderBinding.inflate(inflater,container, false)
-		return binding.root
-	}
-
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
 		btnBack()
 		setUpCartViewModel()
 		showRecyclerView()
 		summary()
 		confirmOrder()
 		popupMsg()
+		return binding.root
 	}
 
 	private fun summary(): Int {

@@ -22,8 +22,8 @@ interface CartDao {
 	@Query("DELETE FROM cart_menu")
 	fun delete()
 
-	@Query("DELETE FROM cart_menu WHERE id = :itemIDD")
-	fun deleteItemById(itemIDD: Long)
+	@Query("DELETE FROM cart_menu WHERE id = :itemId")
+	fun deleteItemById(itemId: Int)
 
 	@Query("UPDATE cart_menu SET food_Quantity = :newTotal WHERE food_name= :foodName")
 	fun updateQuantitiyByName(newTotal: Int, foodName: String)

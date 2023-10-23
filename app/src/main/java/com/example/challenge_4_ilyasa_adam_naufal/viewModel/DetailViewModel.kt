@@ -63,17 +63,18 @@ class DetailViewModel(application: Application) : ViewModel() {
 				imgId = it.imageUrl.toString()
 			)
 
-			val existingItem = repo.getByName(itemCart.itemName)
-
-			existingItem.observeForever { cartCheck ->
-				if (cartCheck != null) {
-			//
-				} else {
-					insert(itemCart	)
-				}
-
-				existingItem.removeObserver{}
-			}
+			insert(itemCart)
+//			val existingItem = repo.getByName(itemCart.itemName)
+//
+//			existingItem.observeForever { cartCheck ->
+//				if (cartCheck != null) {
+//			//
+//				} else {
+//					insert(itemCart	)
+//				}
+//
+//				existingItem.removeObserver{}
+//			}
 
 		}
 	}
