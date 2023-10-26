@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
 	private fun showCategory(data: CategoryMenu) {
 		val adapter = CategoryAdapter()
 
-		adapter.submitCategoryMenuResponse(data.data)
+		adapter.submitCategoryMenuResponse(data.data ?: emptyList() )
 		binding.recycleviewHorizontal.layoutManager =
 			LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
 		binding.recycleviewHorizontal.adapter = adapter

@@ -2,7 +2,6 @@ package com.example.challenge_4_ilyasa_adam_naufal.database.cart
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -28,14 +27,16 @@ interface CartDao {
 	@Update
 	fun update(cart: Cart)
 
-	@Query("Select * FROM cart_menu WHERE food_name = :name")
-	fun getCartItemByName(name : String): Cart?
+	@Query("Select * FROM cart_menu WHERE food_name = :foodName")
+	fun getCartItemByName(foodName: String): Cart?
 
 	fun addOrUpdateCartItem(cartData: Cart) {
 		val existingItem = getCartItemByName(cartData.itemName)
 		if (existingItem != null) {
-			val newQuantity = existingItem.itemQuantity+ cartData.itemQuantity
+			val newQuantity = existingItem.itemQuantity + cartData.itemQuantity
+			val newTotalPrice = newQuantity * existingItem.itemPrice
 			existingItem.itemQuantity = newQuantity
+			existingItem.totalPrice = newTotalPrice
 			update(existingItem)
 		} else {
 

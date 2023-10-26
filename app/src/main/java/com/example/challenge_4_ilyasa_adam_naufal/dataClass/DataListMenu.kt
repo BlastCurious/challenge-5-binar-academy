@@ -15,7 +15,7 @@ data class DataListMenu(
     @SerializedName("detail")
     val detail: String?,
     @SerializedName("harga")
-    val harga: Int?,
+    val harga: Int,
     @SerializedName("harga_format")
     val hargaFormat: String?,
     @SerializedName("image_url")
