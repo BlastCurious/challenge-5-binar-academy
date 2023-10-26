@@ -22,7 +22,9 @@ class CartAdapter(
 		return CartViewHolder(binding)
 	}
 
-	override fun getItemCount(): Int = cartItems.size
+	override fun getItemCount(): Int {
+		return cartItems.size
+	}
 
 	override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
 		val currentItem = cartItems[position]
@@ -72,8 +74,6 @@ class CartAdapter(
 
 			binding.btnadd.setOnClickListener {
 				viewModel.increment(cartItem)
-//				val newQuantity = cartItem.itemQuantity + 1
-//				viewModel.updateQuantityItem(cartItem, newQuantity)
 				binding.tvNumber.text = cartItem.itemQuantity.toString()
 			}
 		}

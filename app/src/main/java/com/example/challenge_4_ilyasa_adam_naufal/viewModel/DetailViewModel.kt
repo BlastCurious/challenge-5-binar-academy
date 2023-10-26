@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.challenge_4_ilyasa_adam_naufal.Callback
 import com.example.challenge_4_ilyasa_adam_naufal.dataClass.DataListMenu
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.Cart
 import com.example.challenge_4_ilyasa_adam_naufal.database.cart.CartDao
@@ -28,9 +29,6 @@ class DetailViewModel(application: Application) : ViewModel() {
 		cartDao = db.cartDao
 	}
 
-	private fun insert(cart: Cart) {
-		repo.insertData(cart)
-	}
 
 	fun initSelectedItem(data: DataListMenu) {
 		_selectedItem.value = data
@@ -47,6 +45,14 @@ class DetailViewModel(application: Application) : ViewModel() {
 		}
 	}
 
+	private fun insertItem(cart: Cart) {
+		repo.insertData(cart)
+	}
+
+	private fun update(cart: Cart) {
+		repo.updateQuantityItem(cart)
+	}
+
 	fun addToCart(note: String) {
 		val selectedItem = _selectedItem.value
 		selectedItem?.let {
@@ -58,25 +64,27 @@ class DetailViewModel(application: Application) : ViewModel() {
 				itemQuantity = counter.value!!.toInt(),
 				imgId = it.imageUrl.toString()
 			)
-			repo.addOrUpdateCartItem(itemCart)
 
-			//insert(itemCart)
-//			val existingItem = repo.getByName(itemCart.itemName)
-//
-//			existingItem.observeForever { cartCheck ->
-//				if (cartCheck != null) {
-//			//
-//				} else {
-//					insert(itemCart	)
-//				}
-//
-//				existingItem.removeObserver{}
-//			}
+			repo.addOrUpdateCartItem(itemCart.itemName, object : Callback {
+				override fun onCartLoaded(cart: Cart?): Cart? {
 
+					if (cart != null) {
+						val total = counter.value!!.toInt() + cart.itemQuantity
+						cart.itemQuantity = total
+						cart.totalPrice = cart.itemPrice!!.times(total)
+						// Memperbarui data dalam database
+						update(cart)
+					} else {
+						insertItem(itemCart)
+					}
+					return cart
+				}
+			})
 		}
 	}
-
 }
+
+
 
 
 

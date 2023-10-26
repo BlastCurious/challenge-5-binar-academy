@@ -87,6 +87,7 @@ class ConfirmOrderFragment : Fragment() {
 		cartViewModel.orderSuccess.observe(viewLifecycleOwner) {
 			if (it) {
 				Toast.makeText(requireContext(), "Success order", Toast.LENGTH_SHORT).show()
+				cartViewModel.deleteAllData()
 			}
 		}
 	}

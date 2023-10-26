@@ -55,18 +55,17 @@ class CartViewModel(application: Application) : ViewModel() {
 	}
 
 	fun postData(ordersRequest: OrderRequest) {
-		APIClient.instance.postOrder(ordersRequest)
-			.enqueue(object : Callback<OrderResponse> {
-				override fun onResponse(
-					call: Call<OrderResponse>,
-					response: Response<OrderResponse>
-				) {
-					val body = response.body()
-					val code = response.code()
+		val instance = APIClient.instance
 
+		val call = instance.postOrder(ordersRequest)
+
+		call.enqueue(object : Callback<OrderResponse> {
+				override fun onResponse(call: Call<OrderResponse>, response: Response<OrderResponse>) {
 					if (response.isSuccessful) {
-						_orderSuccess.postValue(true)
-						deleteAllData()
+						val orderResponse: OrderResponse? = response.body()
+						if (orderResponse != null) {
+							_orderSuccess.postValue(true)
+						}
 					} else {
 						_orderSuccess.postValue(false)
 					}

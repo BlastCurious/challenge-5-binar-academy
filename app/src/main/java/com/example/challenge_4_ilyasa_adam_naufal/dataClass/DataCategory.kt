@@ -9,9 +9,9 @@ data class DataCategory(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("nama")
-    val nama: String,
+    val nama: String?,
     @SerializedName("updatedAt")
     val updatedAt: String?
 )

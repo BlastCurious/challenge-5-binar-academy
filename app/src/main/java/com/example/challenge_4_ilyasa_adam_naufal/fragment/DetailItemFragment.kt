@@ -11,15 +11,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.example.challenge_4_ilyasa_adam_naufal.R
 import com.example.challenge_4_ilyasa_adam_naufal.dataClass.DataListMenu
+import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentDetailItemBinding
 import com.example.challenge_4_ilyasa_adam_naufal.viewModel.DetailViewModel
 import com.example.challenge_4_ilyasa_adam_naufal.viewmodelfactory.ViewModelFactory
-import com.example.challenge_4_ilyasa_adam_naufal.databinding.FragmentDetailItemBinding
 
-class DetailItemFragment: Fragment() {
+class DetailItemFragment : Fragment() {
 	private var _binding: FragmentDetailItemBinding? = null
 	private val binding get() = _binding!!
 
@@ -47,7 +45,7 @@ class DetailItemFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		try  {
+		try {
 			btnBack()
 			wViewModel()
 
@@ -79,9 +77,12 @@ class DetailItemFragment: Fragment() {
 	private fun addToCart() {
 		binding.btnadd2.setOnClickListener {
 			val note = binding.etNote.text.toString()
-			viewModel.addToCart(note)
-
-			Toast.makeText(requireContext(), "Success Add Data", Toast.LENGTH_SHORT).show()
+			try {
+				viewModel.addToCart(note)
+				Toast.makeText(requireContext(), "Success Add Data", Toast.LENGTH_SHORT).show()
+			} catch (e: Exception) {
+				Toast.makeText(requireContext(), "Error: $e", Toast.LENGTH_SHORT).show()
+			}
 		}
 	}
 
