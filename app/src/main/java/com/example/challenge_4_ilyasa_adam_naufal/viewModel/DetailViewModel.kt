@@ -59,14 +59,14 @@ class DetailViewModel(application: Application) : ViewModel() {
 
 		selectedItem?.let {
 			val newItem = Cart(
-				itemName = it.nama.toString(),
+				itemName = it.nama,
 				itemNote = note,
 				itemPrice = it.harga,
 				totalPrice = it.harga!!.times(counter.value!!.toInt()),
 				itemQuantity = counter.value!!.toInt(),
-				imgId = it.imageUrl.toString()
+				imgId = it.imageUrl
 			)
-//			insertItem(newItem)
+
 			repo.addOrUpdateCartItem(newItem.itemName, object :Callback {
 				override fun onCartLoaded(cart: Cart?): Cart? {
 					if (cart!= null) {
