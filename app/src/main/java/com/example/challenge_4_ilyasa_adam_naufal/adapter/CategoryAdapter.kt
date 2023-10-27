@@ -11,6 +11,7 @@ import com.example.challenge_4_ilyasa_adam_naufal.databinding.CategoryItemMenuBi
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
+	//NO MATCHING REQUEST
 	private val diffCallBack = object : DiffUtil.ItemCallback<DataCategoryMenu>() {
 		override fun areItemsTheSame(
 			oldItem: DataCategoryMenu,

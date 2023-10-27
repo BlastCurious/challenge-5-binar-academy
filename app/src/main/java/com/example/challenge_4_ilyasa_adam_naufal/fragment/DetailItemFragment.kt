@@ -79,7 +79,7 @@ class DetailItemFragment : Fragment() {
 			val note = binding.etNote.text.toString()
 			try {
 				viewModel.addToCart(note)
-				Toast.makeText(requireContext(), "Success Add Data", Toast.LENGTH_SHORT).show()
+				Toast.makeText(requireContext(), "Success Add DataCategoryMenu", Toast.LENGTH_SHORT).show()
 			} catch (e: Exception) {
 				Toast.makeText(requireContext(), "Error: $e", Toast.LENGTH_SHORT).show()
 			}

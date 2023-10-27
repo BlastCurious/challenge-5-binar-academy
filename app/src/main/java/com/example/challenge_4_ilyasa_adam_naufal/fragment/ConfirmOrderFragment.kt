@@ -106,7 +106,7 @@ class ConfirmOrderFragment : Fragment() {
 				cartViewModel.postData(orderRequest)
 
 			} else {
-				Toast.makeText(requireContext(), "Data Kosong", Toast.LENGTH_SHORT).show()
+				Toast.makeText(requireContext(), "DataCategoryMenu Kosong", Toast.LENGTH_SHORT).show()
 			}
 
 			val dialogPayment = DialogFragment()
