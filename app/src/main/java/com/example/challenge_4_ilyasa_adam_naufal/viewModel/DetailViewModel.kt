@@ -16,8 +16,8 @@ class DetailViewModel(application: Application) : ViewModel() {
 	private val _counter = MutableLiveData(1)
 	val counter: LiveData<Int> = _counter
 
-	private val _totalPrice = MutableLiveData<Int>()
-	val totalPrice: LiveData<Int> = _totalPrice
+	private val _totalPrice = MutableLiveData<Int?>()
+	val totalPrice: MutableLiveData<Int?> = _totalPrice
 
 	private val _selectedItem = MutableLiveData<DataListMenu>()
 
@@ -49,14 +49,16 @@ class DetailViewModel(application: Application) : ViewModel() {
 		repo.insertData(cart)
 	}
 
+
 	private fun update(cart: Cart) {
 		repo.updateQuantityItem(cart)
 	}
 
 	fun addToCart(note: String) {
 		val selectedItem = _selectedItem.value
+
 		selectedItem?.let {
-			val itemCart = Cart(
+			val newItem = Cart(
 				itemName = it.nama.toString(),
 				itemNote = note,
 				itemPrice = it.harga,
@@ -64,25 +66,27 @@ class DetailViewModel(application: Application) : ViewModel() {
 				itemQuantity = counter.value!!.toInt(),
 				imgId = it.imageUrl.toString()
 			)
-
-			repo.addOrUpdateCartItem(itemCart.itemName, object : Callback {
+//			insertItem(newItem)
+			repo.addOrUpdateCartItem(newItem.itemName, object :Callback {
 				override fun onCartLoaded(cart: Cart?): Cart? {
-
-					if (cart != null) {
+					if (cart!= null) {
 						val total = counter.value!!.toInt() + cart.itemQuantity
 						cart.itemQuantity = total
 						cart.totalPrice = cart.itemPrice!!.times(total)
 						// Memperbarui data dalam database
 						update(cart)
 					} else {
-						insertItem(itemCart)
+						insertItem(newItem)
 					}
 					return cart
 				}
+
 			})
 		}
 	}
+
 }
+
 
 
 

@@ -13,9 +13,9 @@ interface APIService {
 	@GET("listmenu")
 	fun getListMenu(): Call<ListMenu>
 
-	@GET("category")
+	@GET("category-menu")
 	fun getCategoryMenu(): Call<CategoryMenu>
 
-	@POST("order")
+	@POST("order-menu")
 	fun postOrder(@Body orderData: OrderRequest): Call<OrderResponse>
 }

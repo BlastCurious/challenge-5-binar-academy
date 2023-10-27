@@ -12,8 +12,8 @@ interface CartDao {
 	@Insert
 	fun insert(cart: Cart)
 
-	@Query("SELECT * FROM cart_menu WHERE food_name = :foodName")
-	fun getItem(foodName: String): LiveData<Cart>
+	@Update
+	fun update(cart: Cart)
 
 	@Query("SELECT * FROM cart_menu")
 	fun getAllItems(): LiveData<List<Cart>>
@@ -24,13 +24,10 @@ interface CartDao {
 	@Query("DELETE FROM cart_menu WHERE id = :itemId")
 	fun deleteItemById(itemId: Int)
 
-	@Update
-	fun update(cart: Cart)
-
 	@Query("Select * FROM cart_menu WHERE food_name = :foodName")
-	fun getCartItemByName(foodName: String): Cart?
+	fun getCartItemByName(foodName: String): Cart
 
-	fun addOrUpdateCartItem(cartData: Cart) {
+	/*fun addOrUpdateCartItem(cartData: Cart) {
 		val existingItem = getCartItemByName(cartData.itemName)
 		if (existingItem != null) {
 			val newQuantity = existingItem.itemQuantity + cartData.itemQuantity
@@ -39,9 +36,8 @@ interface CartDao {
 			existingItem.totalPrice = newTotalPrice
 			update(existingItem)
 		} else {
-
 			insert(cartData)
 		}
-	}
+	}*/
 
 }

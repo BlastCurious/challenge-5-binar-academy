@@ -43,7 +43,8 @@ class CartViewModel(application: Application) : ViewModel() {
 	}
 
 	fun decrement(cart: Cart) {
-		var newTotal = cart.itemQuantity - 1
+		var newTotal = cart.itemQuantity
+
 		if (newTotal > 1) {
 			newTotal = cart.itemQuantity - 1
 		}

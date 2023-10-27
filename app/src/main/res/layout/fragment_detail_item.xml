@@ -107,7 +107,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardview2"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_note"
         android:layout_width="390dp"
         android:layout_height="48dp"
@@ -129,7 +129,8 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/baseline_remove_circle_24"
         app:layout_constraintBottom_toTopOf="@id/btnadd2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/quantity"/>
 
     <ImageView
         android:id="@+id/btnadd1"

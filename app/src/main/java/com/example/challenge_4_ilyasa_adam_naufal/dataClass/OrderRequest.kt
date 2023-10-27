@@ -4,7 +4,7 @@ data class Order (
 	val name : String,
 	val qty : Int,
 	val note: String?,
-	val price: Int?
+	val price: Int
 )
 data class OrderRequest(
 	val username: String,

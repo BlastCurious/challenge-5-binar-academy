@@ -16,10 +16,6 @@ class CartRepo(application: Application) {
 		_cartDao = db.cartDao
 	}
 
-	fun insertData(cart: Cart) {
-		executorService.execute { _cartDao.insert(cart) }
-	}
-
 	fun getAllCartItems(): LiveData<List<Cart>> {
 		return _cartDao.getAllItems()
 	}
@@ -38,15 +34,14 @@ class CartRepo(application: Application) {
 		executorService.execute { _cartDao.update(cart) }
 	}
 
-	fun getByName(foodName: String): LiveData<Cart> {
-		return _cartDao.getItem(foodName)
+	fun insertData(cart: Cart) {
+		executorService.execute { _cartDao.insert(cart) }
 	}
 
 	fun addOrUpdateCartItem(foodName: String, callback: Callback) {
-
 		executorService.execute {
-			val keranjang = _cartDao.getCartItemByName(foodName)
-			callback.onCartLoaded(keranjang)
+			val cart = _cartDao.getCartItemByName(foodName)
+			callback.onCartLoaded(cart)
 		}
 	}
 }

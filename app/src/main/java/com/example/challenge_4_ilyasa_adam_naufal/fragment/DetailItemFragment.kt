@@ -77,12 +77,8 @@ class DetailItemFragment : Fragment() {
 	private fun addToCart() {
 		binding.btnadd2.setOnClickListener {
 			val note = binding.etNote.text.toString()
-			try {
 				viewModel.addToCart(note)
 				Toast.makeText(requireContext(), "Success Add Item", Toast.LENGTH_SHORT).show()
-			} catch (e: Exception) {
-				Toast.makeText(requireContext(), "Error: $e", Toast.LENGTH_SHORT).show()
-			}
 		}
 	}
 
@@ -95,16 +91,18 @@ class DetailItemFragment : Fragment() {
 		@Suppress("DEPRECATION")
 		val data = arguments?.getParcelable<DataListMenu>("dataListMenu")
 
-		binding.nameadd.text = data?.nama
-		binding.description.text = data?.detail
-		binding.priceadd.text = data?.hargaFormat
-		binding.location.text = data?.alamatResto
-		Glide.with(binding.imageadd)
-			.load(data?.imageUrl)
-			.fitCenter()
-			.into(binding.imageadd)
+			Glide.with(binding.imageadd)
+				.load(data?.imageUrl)
+				.fitCenter()
+				.into(binding.imageadd)
+			binding.nameadd.text = data?.nama
+			binding.description.text = data?.detail
+			binding.priceadd.text = data?.hargaFormat
+			binding.location.text = data?.alamatResto
 
-		viewModel.initSelectedItem(data!!)
+			viewModel.initSelectedItem(data!!)
+
+
 	}
 
 	private fun wViewModel() {
