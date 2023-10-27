@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class CategoryMenu(
     @SerializedName("code")
-    val code: Int?,
+    val code: Int,
     @SerializedName("data")
-    val `data`: List<DataCategory>,
+    val `data`: List<DataCategoryMenu>,
     @SerializedName("message")
-    val message: String?,
+    val message: String,
     @SerializedName("status")
-    val status: Boolean?
+    val status: Boolean
 )

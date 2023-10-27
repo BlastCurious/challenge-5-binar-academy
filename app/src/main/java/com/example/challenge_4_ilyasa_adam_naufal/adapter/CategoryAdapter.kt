@@ -6,26 +6,26 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.challenge_4_ilyasa_adam_naufal.dataClass.DataCategory
+import com.example.challenge_4_ilyasa_adam_naufal.dataClass.DataCategoryMenu
 import com.example.challenge_4_ilyasa_adam_naufal.databinding.CategoryItemMenuBinding
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-	private val diffCallBack = object : DiffUtil.ItemCallback<DataCategory>() {
+	private val diffCallBack = object : DiffUtil.ItemCallback<DataCategoryMenu>() {
 		override fun areItemsTheSame(
-			oldItem: DataCategory,
-			newItem: DataCategory
+			oldItem: DataCategoryMenu,
+			newItem: DataCategoryMenu
 		): Boolean = oldItem.id == newItem.id
 
 		override fun areContentsTheSame(
-			oldItem: DataCategory,
-			newItem: DataCategory
+			oldItem: DataCategoryMenu,
+			newItem: DataCategoryMenu
 		): Boolean = oldItem == newItem
 	}
 
 	private val differ = AsyncListDiffer(this, diffCallBack)
 
-	fun submitCategoryMenuResponse(value: List<DataCategory>) = differ.submitList(value)
+	fun submitCategoryMenuResponse(value: List<DataCategoryMenu>) = differ.submitList(value)
 
 	// Membuat Holder
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
@@ -47,7 +47,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 		private var binding:
 		CategoryItemMenuBinding
 	) : RecyclerView.ViewHolder(binding.root) {
-		fun bind(data: DataCategory) {
+		fun bind(data: DataCategoryMenu) {
 			binding.apply {
 				titleCat.text = data.nama
 				Glide.with(this.categoryImageMenu)
